@@ -59,12 +59,12 @@ class WebWrapper:
         # here we should have field with controla botowa ready 
 
         try:
-            field_click = self.no_driver_page.find('Przegląd wioski')
+            field_click = self.no_driver_page.find('???')
             field_click.click()
         except:
             pass
-
-
+        
+        self.no_driver_page.verify_cf(template_image=None, flash=False)
 
     def post_process(self, response):
         """

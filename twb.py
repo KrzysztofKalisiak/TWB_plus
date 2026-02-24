@@ -32,6 +32,9 @@ import traceback
 import coloredlogs
 import requests
 
+import nodriver as uc
+import time
+
 from core.notification import Notification
 from core.updater import check_update
 from core.filemanager import FileManager
@@ -276,7 +279,7 @@ class TWB:
         get_h = time.localtime().tm_hour
         return get_h in range(active_h[0], active_h[1])
 
-    def run(self, connection_string):
+    def run(self, connection_string, no_driver_page):
         """
         Run the bot
         TODO: make less messy
@@ -307,6 +310,7 @@ class TWB:
             endpoint=config["server"]["endpoint"],
             reporter_enabled=config["reporting"]["enabled"],
             reporter_constr=config["reporting"]["connection_string"],
+            no_driver_page = no_driver_page
         )
 
         self.wrapper.start(connection_string)
@@ -424,7 +428,7 @@ class TWB:
                 sys.stdout.flush()
                 time.sleep(sleep)
 
-    def start(self, connection_string):
+    def start(self, connection_string, page):
         """
         First run, verify if dirctory structure exist
         """
@@ -439,10 +443,10 @@ class TWB:
         ]
         FileManager.create_directories(directories)
 
-        self.run(connection_string)
+        self.run(connection_string, page)
 
 
-def main(connection_string=None):
+def main(connection_string=None, page=None):
     """
     Python main entry function
     """
@@ -450,7 +454,7 @@ def main(connection_string=None):
     for _ in range(3):
         t = TWB()
         try:
-            t.start(connection_string=connection_string)
+            t.start(connection_string=connection_string, page=page)
         except Exception as e:
             t.wrapper.reporter.report(0, "TWB_EXCEPTION", str(e))
             print("I crashed :(   %s" % str(e))
@@ -477,10 +481,6 @@ def self_config_test():
     except Exception as e:
         logging.error(e)
         return False
-
-
-import nodriver as uc
-import time
 
 async def main_no_driver():
 
@@ -536,4 +536,4 @@ if __name__ == "__main__":
             sys.exit(1)
         sys.exit(0)
 
-    main(current_cookie_string)
+    main(current_cookie_string, page)
