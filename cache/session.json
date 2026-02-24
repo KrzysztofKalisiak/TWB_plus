@@ -1,0 +1,11 @@
+{
+  "endpoint": "https://pl225.plemiona.pl/game.php",
+  "server": "pl225",
+  "cookies": {
+    "global_village_id": "27766",
+    "websocket_available": "true",
+    "sid": "0%3A5496cd8d9d57c29b77e0101f1c9541e763df2d05abbba5d89a5d0e3ab581ac41ca48e6e3d0037e665989b0934683500f767c31c4fbec9726ba048477c96ac952",
+    "cid": "1283755274",
+    "pl_auth": "8b206eb56e29:ca75325564f056151461ab357d81d93c57736e0749bbb9df71d54352bdb30824"
+  }
+}

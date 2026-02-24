@@ -1,0 +1,19 @@
+{
+  "id": "24704",
+  "name": "0002 Osada koczownik\u00f3w",
+  "location": [
+    600,
+    370
+  ],
+  "bonus": [
+    "30% wi\u0119ksza produkcja surowc\u00f3w (wszystkie surowce)",
+    "bonus/all.png"
+  ],
+  "points": 4719,
+  "safe": false,
+  "scout": false,
+  "tribe": "184",
+  "owner": "698791945",
+  "buildings": {},
+  "resources": {}
+}

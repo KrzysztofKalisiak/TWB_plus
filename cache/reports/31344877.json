@@ -1,0 +1,34 @@
+{
+  "type": "scout",
+  "origin": "27766",
+  "dest": "26264",
+  "losses": {},
+  "extra": {
+    "when": 1771197095,
+    "units_sent": {
+      "spy": 5
+    },
+    "units_losses": {},
+    "defence_units": {},
+    "defence_losses": {},
+    "buildings": {
+      "main": 8,
+      "barracks": 6,
+      "smith": 3,
+      "place": 1,
+      "market": 2,
+      "wood": 8,
+      "stone": 7,
+      "iron": 5,
+      "farm": 4,
+      "storage": 9,
+      "hide": 4
+    },
+    "resources": {
+      "wood": "40",
+      "stone": "34",
+      "iron": "25"
+    },
+    "units_away": {}
+  }
+}

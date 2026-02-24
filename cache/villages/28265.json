@@ -1,0 +1,19 @@
+{
+  "id": "28265",
+  "name": "004",
+  "location": [
+    608,
+    370
+  ],
+  "bonus": [
+    "10% wi\u0119cej ludno\u015bci",
+    "bonus/farm.png"
+  ],
+  "points": 2879,
+  "safe": false,
+  "scout": false,
+  "tribe": "332",
+  "owner": "699555405",
+  "buildings": {},
+  "resources": {}
+}

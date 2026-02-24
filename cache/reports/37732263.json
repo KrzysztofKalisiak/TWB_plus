@@ -1,0 +1,46 @@
+{
+  "type": "attack",
+  "origin": "27766",
+  "dest": "26506",
+  "losses": {},
+  "extra": {
+    "when": 1771883081,
+    "units_sent": {
+      "axe": 3220,
+      "spy": 200,
+      "light": 1293,
+      "marcher": 120,
+      "ram": 114,
+      "knight": 1,
+      "snob": 1
+    },
+    "units_losses": {
+      "axe": 341,
+      "spy": 143,
+      "light": 137,
+      "marcher": 11,
+      "ram": 12
+    },
+    "defence_units": {
+      "spear": 978,
+      "sword": 768,
+      "axe": 506,
+      "archer": 72,
+      "spy": 159,
+      "light": 199,
+      "heavy": 15,
+      "knight": 1
+    },
+    "defence_losses": {
+      "spear": 978,
+      "sword": 768,
+      "axe": 506,
+      "archer": 72,
+      "spy": 159,
+      "light": 199,
+      "heavy": 15,
+      "knight": 1
+    },
+    "loot": {}
+  }
+}

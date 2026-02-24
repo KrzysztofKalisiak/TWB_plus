@@ -1,0 +1,19 @@
+{
+  "id": "26805",
+  "name": "0017 Osada koczownik\u00f3w",
+  "location": [
+    604,
+    369
+  ],
+  "bonus": [
+    "100% wi\u0119ksza produkcja drewna",
+    "bonus/wood.png"
+  ],
+  "points": 1325,
+  "safe": false,
+  "scout": false,
+  "tribe": "184",
+  "owner": "698791945",
+  "buildings": {},
+  "resources": {}
+}

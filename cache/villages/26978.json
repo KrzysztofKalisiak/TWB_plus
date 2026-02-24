@@ -1,0 +1,19 @@
+{
+  "id": "26978",
+  "name": "Osada koczownik\u00f3w",
+  "location": [
+    605,
+    367
+  ],
+  "bonus": [
+    "100% wi\u0119ksza produkcja \u017celaza",
+    "bonus/iron.png"
+  ],
+  "points": 414,
+  "safe": false,
+  "scout": false,
+  "tribe": "291",
+  "owner": "849298343",
+  "buildings": {},
+  "resources": {}
+}
