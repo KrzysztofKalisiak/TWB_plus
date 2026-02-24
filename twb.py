@@ -310,7 +310,7 @@ class TWB:
             endpoint=config["server"]["endpoint"],
             reporter_enabled=config["reporting"]["enabled"],
             reporter_constr=config["reporting"]["connection_string"],
-            no_driver_page = no_driver_page
+            no_driver_page = None
         )
 
         self.wrapper.start(connection_string)
