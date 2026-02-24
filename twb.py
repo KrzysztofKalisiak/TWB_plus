@@ -487,6 +487,8 @@ async def main_no_driver():
     browser = await uc.start()
     page = await browser.get('https://www.plemiona.pl/')
 
+    time.sleep(5)
+
     username_field = await page.find('username')
     await username_field.send_keys('Eutio')
 
