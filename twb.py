@@ -276,7 +276,7 @@ class TWB:
         get_h = time.localtime().tm_hour
         return get_h in range(active_h[0], active_h[1])
 
-    def run(self):
+    def run(self, connection_string):
         """
         Run the bot
         TODO: make less messy
@@ -309,7 +309,7 @@ class TWB:
             reporter_constr=config["reporting"]["connection_string"],
         )
 
-        self.wrapper.start()
+        self.wrapper.start(connection_string)
         if not config["bot"].get("user_agent", None):
             print(
                 "No custom user agent was supplied, this will likely get you banned."
@@ -325,6 +325,7 @@ class TWB:
         rm = None
         defense_states = {}
         while self.should_run:
+
             if not self.internet_online():
                 print("Internet seems to be down, waiting till its back online...")
                 sleep = 0
@@ -342,6 +343,7 @@ class TWB:
                 )
                 time.sleep(sleep)
             else:
+
                 config = self.config()
                 overview_page, config = self.get_overview(config)
                 has_changed, new_cf = self.get_world_options(overview_page, config)
@@ -399,6 +401,12 @@ class TWB:
                 sleep = 0
                 if self.is_active_hours(config=config):
                     sleep = config["bot"]["active_delay"]
+
+                    if random.random()<0.0007:
+
+                        new_connection_string = uc.loop().run_until_complete(main_no_driver())
+                        self.wrapper.start(new_connection_string)
+
                 else:
                     if config["bot"]["inactive_still_active"]:
                         sleep = config["bot"]["inactive_delay"]
@@ -416,7 +424,7 @@ class TWB:
                 sys.stdout.flush()
                 time.sleep(sleep)
 
-    def start(self):
+    def start(self, connection_string):
         """
         First run, verify if dirctory structure exist
         """
@@ -431,10 +439,10 @@ class TWB:
         ]
         FileManager.create_directories(directories)
 
-        self.run()
+        self.run(connection_string)
 
 
-def main():
+def main(connection_string=None):
     """
     Python main entry function
     """
@@ -442,7 +450,7 @@ def main():
     for _ in range(3):
         t = TWB()
         try:
-            t.start()
+            t.start(connection_string=connection_string)
         except Exception as e:
             t.wrapper.reporter.report(0, "TWB_EXCEPTION", str(e))
             print("I crashed :(   %s" % str(e))
@@ -471,7 +479,50 @@ def self_config_test():
         return False
 
 
+import nodriver as uc
+import time
+
+async def main_no_driver():
+
+    browser = await uc.start()
+    page = await browser.get('https://www.plemiona.pl/')
+
+    username_field = await page.find('username')
+    await username_field.send_keys('Eutio')
+
+    time.sleep(2)
+
+    password_field = await page.find('password')
+    await password_field.send_keys('JebacGraczyPremium1')
+
+    log_field = await page.find('btn-login')
+
+    time.sleep(5)
+    
+    await log_field.click()
+
+    time.sleep(5)
+
+    base_url = await page.evaluate('window.location.origin')
+
+    relative_url = "/page/play/pl225"
+    full_url = base_url + relative_url
+    new_page = await browser.get(full_url)
+
+    time.sleep(2)
+
+    cookies = await page.send(uc.cdp.network.get_cookies())
+    
+    # 4. Format them into a single string (like the one in game.php headers)
+    cookie_string = "; ".join([f"{c.name}={c.value}" for c in reversed(cookies)])
+    #print(f"Your Header Cookie String: {cookie_string}")
+
+    return cookie_string, page
+
 if __name__ == "__main__":
+
+    current_cookie_string, page = uc.loop().run_until_complete(main_no_driver())
+
     if "-i" in sys.argv:
         logging.info("Bot integrity check passed")
         check_conf = self_config_test()
@@ -484,4 +535,5 @@ if __name__ == "__main__":
             logging.error("It looks like your config file is corrupted and the bot was not able to start.")
             sys.exit(1)
         sys.exit(0)
-    main()
+
+    main(current_cookie_string)

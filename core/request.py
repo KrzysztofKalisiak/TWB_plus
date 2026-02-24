@@ -34,8 +34,9 @@ class WebWrapper:
     auth_endpoint = None
     reporter = None
     delay = 1.0
+    no_driver_page = None
 
-    def __init__(self, url, server=None, endpoint=None, reporter_enabled=False, reporter_constr=None):
+    def __init__(self, url, server=None, endpoint=None, reporter_enabled=False, reporter_constr=None, no_driver_page=None):
         """
         Construct the session and detect variables
         """
@@ -44,6 +45,26 @@ class WebWrapper:
         self.server = server
         self.endpoint = endpoint
         self.reporter = ReporterObject(enabled=reporter_enabled, connection_string=reporter_constr)
+        self.no_driver_page = no_driver_page
+    
+    def bypass_captcha(self):
+        # first click something from captcha to arrive
+        try:
+            field_click = self.no_driver_page.find('Przegląd wioski')
+            field_click.click()
+        except:
+            # notify user
+            pass
+
+        # here we should have field with controla botowa ready 
+
+        try:
+            field_click = self.no_driver_page.find('Przegląd wioski')
+            field_click.click()
+        except:
+            pass
+
+
 
     def post_process(self, response):
         """
@@ -76,11 +97,41 @@ class WebWrapper:
             self.logger.debug("GET %s [%d]", url, res.status_code)
             self.post_process(res)
             if 'data-bot-protect="forced"' in res.text:
+
+                import asyncio
+                from telegram import Bot
+
+                async def send_message_bot():
+                    # Replace with your actual token and chat ID
+                    bot_token = "8776904280:AAE-Uqt8SZ2MU6RKxFsUD41Ng69iB80tsek"
+                    chat_id = "6200689160"
+                    
+                    bot = Bot(token=bot_token)
+                    
+                    async with bot:
+                        await bot.send_message(chat_id=chat_id, text="BOT PROTECTION !!! RUST DESK AND FILL CAPTCHA")
+                
+                async def send_message_nobot():
+                    # Replace with your actual token and chat ID
+                    bot_token = "8776904280:AAE-Uqt8SZ2MU6RKxFsUD41Ng69iB80tsek"
+                    chat_id = "6200689160"
+                    
+                    bot = Bot(token=bot_token)
+                    
+                    async with bot:
+                        await bot.send_message(chat_id=chat_id, text="BOT PROTECTION !!! RUST DESK AND FILL CAPTCHA")
+
+                asyncio.run(send_message_bot())
+
+
                 self.logger.warning("Bot protection hit! cannot continue")
                 self.reporter.report(
                     0, "TWB_RECAPTCHA", "Stopping bot, press any key once captcha has been solved")
                 Notification.send("Bot protection hit! cannot continue")
                 input("Press any key...")
+
+                asyncio.run(send_message_nobot())
+
                 return self.get_url(url, headers)
             return res
         except Exception as e:
@@ -109,7 +160,7 @@ class WebWrapper:
             self.logger.warning("POST %s %s: %s", url, enc, str(e))
             return None
 
-    def start(self, ):
+    def start(self, connection_string):
         """
         Start the bot and verify whether the last session is still valid
         """
@@ -122,7 +173,10 @@ class WebWrapper:
             self.logger.warning("Current session cache not valid")
 
         self.web.cookies.clear()
-        cinp = input("Enter browser cookie string> ")
+        if connection_string is None:
+            cinp = input("Enter browser cookie string> ")
+        else:
+            cinp = connection_string
         cookies = {}
         cinp = cinp.strip()
         for itt in cinp.split(';'):
