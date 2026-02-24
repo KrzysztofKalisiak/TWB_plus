@@ -5,7 +5,7 @@ __pycache__/
 # Actual files to hide
 #config.json
 ##cache/**
-config.bak
+#config.bak
 # C extensions
 *.so
 # Distribution / packaging
