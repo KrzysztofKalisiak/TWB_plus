@@ -99,7 +99,7 @@
   },
   "villages": {
     "27766": {
-      "building": "purple_predator",
+      "building": "purple_predator_s",
       "units": "basic",
       "managed": true,
       "scout_first": false,
@@ -119,7 +119,7 @@
     },
     "26506": {
       "building": "purple_predator",
-      "units": "basic",
+      "units": "basic_into_def",
       "managed": true,
       "scout_first": false,
       "additional_farms": [],
