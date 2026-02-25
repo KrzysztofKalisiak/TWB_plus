@@ -1,0 +1,15 @@
+{
+  "type": "attack",
+  "origin": "27766",
+  "dest": "28458",
+  "losses": {},
+  "extra": {
+    "when": 1772008972,
+    "units_sent": {
+      "spy": 467
+    },
+    "units_losses": {
+      "spy": 467
+    }
+  }
+}

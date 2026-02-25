@@ -1,7 +1,7 @@
 {
   "scout": true,
-  "safe": false,
+  "safe": true,
   "high_profile": false,
   "low_profile": false,
-  "last_attack": 1771965916
+  "last_attack": 1772006609
 }

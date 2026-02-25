@@ -5,12 +5,15 @@ Class for using one generic cookie jar, emulating a single tab
 import requests
 
 from core.filemanager import FileManager
-from core.notification import Notification
+from core.notification import Notification, send_message_telegram
+
+from personal_config import SECRETS
 
 import logging
 import re
 import time
 import random
+import asyncio
 from urllib.parse import urljoin, urlencode
 
 from core.reporter import ReporterObject
@@ -98,31 +101,7 @@ class WebWrapper:
             self.post_process(res)
             if 'data-bot-protect="forced"' in res.text:
 
-                import asyncio
-                from telegram import Bot
-
-                async def send_message_bot():
-                    # Replace with your actual token and chat ID
-                    bot_token = "8776904280:AAE-Uqt8SZ2MU6RKxFsUD41Ng69iB80tsek"
-                    chat_id = "6200689160"
-                    
-                    bot = Bot(token=bot_token)
-                    
-                    async with bot:
-                        await bot.send_message(chat_id=chat_id, text="BOT PROTECTION !!! RUST DESK AND FILL CAPTCHA")
-                
-                async def send_message_nobot():
-                    # Replace with your actual token and chat ID
-                    bot_token = "8776904280:AAE-Uqt8SZ2MU6RKxFsUD41Ng69iB80tsek"
-                    chat_id = "6200689160"
-                    
-                    bot = Bot(token=bot_token)
-                    
-                    async with bot:
-                        await bot.send_message(chat_id=chat_id, text="BOT PROTECTION !!! RUST DESK AND FILL CAPTCHA")
-
-                asyncio.run(send_message_bot())
-
+                asyncio.run(send_message_telegram('Bot Protection Hit. Use RustDesk to complete captcha', SECRETS))
 
                 self.logger.warning("Bot protection hit! cannot continue")
                 self.reporter.report(
@@ -130,7 +109,7 @@ class WebWrapper:
                 Notification.send("Bot protection hit! cannot continue")
                 input("Press any key...")
 
-                asyncio.run(send_message_nobot())
+                asyncio.run(send_message_telegram('Captcha Dissactivated', SECRETS))
 
                 return self.get_url(url, headers)
             return res

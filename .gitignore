@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 # Actual files to hide
 #config.json
+personal_config.py
 ##cache/**
 #config.bak
 # C extensions

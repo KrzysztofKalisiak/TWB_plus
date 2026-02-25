@@ -1,16 +1,16 @@
 {
   "id": "27898",
-  "name": "Wioska G\u0142oodzilla",
+  "name": 0,
   "location": [
     613,
     373
   ],
   "bonus": null,
-  "points": 212,
+  "points": 207,
   "safe": false,
   "scout": false,
-  "tribe": "0",
-  "owner": "8188147",
+  "tribe": null,
+  "owner": "0",
   "buildings": {},
   "resources": {}
 }

@@ -2,10 +2,10 @@
   "endpoint": "https://pl225.plemiona.pl/game.php",
   "server": "pl225",
   "cookies": {
-    "global_village_id": "27766",
-    "sid": "0%3A953041e9c9d0061da16e170f92917fe0b972eb43362f88e6149fda9260c9e220c70142d1eb74e643f8d0d5df6e309769c2ad5d755a25e8af415a20893cd2fa50",
-    "cid": "932426206",
-    "pl_auth": "795f08d5c5d5:98eda93c1bf3c7b00670e1334f9275d36f27e4f5e2553047b51fd1b9035064cf",
-    "websocket_available": "true"
+    "websocket_available": "true",
+    "pl_auth": "32e77b2d9dcd:d600f431584f334b4d9f03d45a3d8727707df289cdb080d81ab7e694a3f89e0b",
+    "cid": "1690978949",
+    "sid": "0%3Aada7f87a0d9d452b430535d02caff0d25d485fd16c4780c59de1b75781e7aa537777b7b515603c557f9128960c70b80942929f31ef31211af843316863cb7fdb",
+    "global_village_id": "27766"
   }
 }

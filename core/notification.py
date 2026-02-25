@@ -5,6 +5,20 @@ import telegram
 from core.filemanager import FileManager
 from core.exceptions import InvalidJSONException
 
+import asyncio
+from telegram import Bot
+
+from personal_config import SECRETS
+
+async def send_message_telegram(t):
+    # Replace with your actual token and chat ID
+    #bot_token = "8776904280:AAE-Uqt8SZ2MU6RKxFsUD41Ng69iB80tsek"
+    #chat_id = "6200689160"
+    
+    bot = Bot(token=SECRETS['bot_token'])
+    
+    async with bot:
+        await bot.send_message(chat_id=SECRETS['chat_id'], text=t)
 
 class _Notification:
     bot = None

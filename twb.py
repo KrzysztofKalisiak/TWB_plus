@@ -32,10 +32,22 @@ import traceback
 import coloredlogs
 import requests
 
+import asyncio
+
 import nodriver as uc
 import time
+from pathlib import Path
 
-from core.notification import Notification
+file_path = Path('personal_config.py')
+if not file_path.is_file():
+
+    print("ADDD PERSONAL CONFIG!!!")
+    raise Exception
+
+
+from personal_config import SECRETS
+
+from core.notification import Notification, send_message_telegram
 from core.updater import check_update
 from core.filemanager import FileManager
 from core.request import WebWrapper
@@ -279,7 +291,7 @@ class TWB:
         get_h = time.localtime().tm_hour
         return get_h in range(active_h[0], active_h[1])
 
-    def run(self, connection_string, no_driver_page):
+    def run(self, connection_string, no_driver_page, iterations):
         """
         Run the bot
         TODO: make less messy
@@ -326,9 +338,12 @@ class TWB:
             v = Village(wrapper=self.wrapper, village_id=vid)
             self.villages.append(copy.deepcopy(v))
         # setup additional builder
+
+        ite = -1
         rm = None
         defense_states = {}
         while self.should_run:
+            ite += 1
 
             if not self.internet_online():
                 print("Internet seems to be down, waiting till its back online...")
@@ -406,11 +421,6 @@ class TWB:
                 if self.is_active_hours(config=config):
                     sleep = config["bot"]["active_delay"]
 
-                    if random.random()<0.0007:
-
-                        new_connection_string = uc.loop().run_until_complete(main_no_driver())
-                        self.wrapper.start(new_connection_string)
-
                 else:
                     if config["bot"]["inactive_still_active"]:
                         sleep = config["bot"]["inactive_delay"]
@@ -428,7 +438,14 @@ class TWB:
                 sys.stdout.flush()
                 time.sleep(sleep)
 
-    def start(self, connection_string, page):
+                if ite == iterations:
+                    asyncio.run(send_message_telegram('Session Finish - Successfull - Rotate cookie'), SECRETS)
+                    return 0
+
+
+
+
+    def start(self, connection_string, page, iterations):
         """
         First run, verify if dirctory structure exist
         """
@@ -443,10 +460,10 @@ class TWB:
         ]
         FileManager.create_directories(directories)
 
-        self.run(connection_string, page)
+        return self.run(connection_string, page, iterations)
 
 
-def main(connection_string=None, page=None):
+def main(connection_string=None, page=None, iterations=1):
     """
     Python main entry function
     """
@@ -454,7 +471,7 @@ def main(connection_string=None, page=None):
     for _ in range(3):
         t = TWB()
         try:
-            t.start(connection_string=connection_string, page=page)
+            return t.start(connection_string=connection_string, page=page, iterations=iterations)
         except Exception as e:
             t.wrapper.reporter.report(0, "TWB_EXCEPTION", str(e))
             print("I crashed :(   %s" % str(e))
@@ -482,7 +499,7 @@ def self_config_test():
         logging.error(e)
         return False
 
-async def main_no_driver():
+async def main_no_driver(world):
 
     browser = await uc.start()
     page = await browser.get('https://www.plemiona.pl/')
@@ -490,12 +507,12 @@ async def main_no_driver():
     time.sleep(5)
 
     username_field = await page.find('username')
-    await username_field.send_keys('Eutio')
+    await username_field.send_keys(SECRETS['username'])
 
     time.sleep(2)
 
     password_field = await page.find('password')
-    await password_field.send_keys('JebacGraczyPremium1')
+    await password_field.send_keys(SECRETS['password'])#'JebacGraczyPremium1'
 
     log_field = await page.find('btn-login')
 
@@ -507,7 +524,7 @@ async def main_no_driver():
 
     base_url = await page.evaluate('window.location.origin')
 
-    relative_url = "/page/play/pl225"
+    relative_url = "/page/play/pl%i" % world
     full_url = base_url + relative_url
     new_page = await browser.get(full_url)
 
@@ -519,23 +536,40 @@ async def main_no_driver():
     cookie_string = "; ".join([f"{c.name}={c.value}" for c in reversed(cookies)])
     #print(f"Your Header Cookie String: {cookie_string}")
 
-    return cookie_string, page
+    return cookie_string, page, browser
+
+def wrapper_rotator(world, iterations):
+        
+        current_cookie_string, page, browser = uc.loop().run_until_complete(main_no_driver(world))
+
+        if "-i" in sys.argv:
+            logging.info("Bot integrity check passed")
+            check_conf = self_config_test()
+            if sys.version_info[0] == 2:
+                raise UnsupportedPythonVersion
+            if check_conf is True:
+                logging.info("Config integrity check passed")
+            if check_conf is False:
+                logging.error("Config integrity check failed")
+                logging.error("It looks like your config file is corrupted and the bot was not able to start.")
+                sys.exit(1)
+            sys.exit(0)
+
+        code = main(current_cookie_string, page, iterations)
+
+        browser.stop()
+
+        return code
 
 if __name__ == "__main__":
 
-    current_cookie_string, page = uc.loop().run_until_complete(main_no_driver())
+    avg_world_iterations = 70 # more or less every 6h
 
-    if "-i" in sys.argv:
-        logging.info("Bot integrity check passed")
-        check_conf = self_config_test()
-        if sys.version_info[0] == 2:
-            raise UnsupportedPythonVersion
-        if check_conf is True:
-            logging.info("Config integrity check passed")
-        if check_conf is False:
-            logging.error("Config integrity check failed")
-            logging.error("It looks like your config file is corrupted and the bot was not able to start.")
-            sys.exit(1)
-        sys.exit(0)
+    should_run=True # maybe add some logic to kill in the future idk
+    while should_run:
 
-    main(current_cookie_string, page)
+        for w in SECRETS['worlds']:
+
+            iterations = int(random.gauss(avg_world_iterations, avg_world_iterations/3))
+
+            wrapper_rotator(w, iterations)

@@ -118,7 +118,7 @@
       "request_support_on_attack": false
     },
     "26506": {
-      "building": "purple_predator",
+      "building": "purple_predator_into_def",
       "units": "basic_into_def",
       "managed": true,
       "scout_first": false,
@@ -126,8 +126,8 @@
       "prioritize_building": false,
       "prioritize_snob": false,
       "trade_for_premium": false,
-      "gather_enabled": false,
-      "gather_selection": 1,
+      "gather_enabled": true,
+      "gather_selection": 4,
       "advanced_gather": true,
       "snobs": 0,
       "evacuate_fragile_units_on_attack": true,
