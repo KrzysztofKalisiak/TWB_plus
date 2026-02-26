@@ -8,9 +8,7 @@ from core.exceptions import InvalidJSONException
 import asyncio
 from telegram import Bot
 
-from personal_config import SECRETS
-
-async def send_message_telegram(t):
+async def send_message_telegram(t, SECRETS):
     # Replace with your actual token and chat ID
     #bot_token = "8776904280:AAE-Uqt8SZ2MU6RKxFsUD41Ng69iB80tsek"
     #chat_id = "6200689160"

@@ -127,7 +127,7 @@
       "prioritize_snob": false,
       "trade_for_premium": false,
       "gather_enabled": true,
-      "gather_selection": 4,
+      "gather_selection": 3,
       "advanced_gather": true,
       "snobs": 0,
       "evacuate_fragile_units_on_attack": true,

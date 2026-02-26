@@ -339,6 +339,7 @@ class TWB:
             self.villages.append(copy.deepcopy(v))
         # setup additional builder
 
+        asyncio.run(send_message_telegram('Rotation Started...', SECRETS))
         ite = -1
         rm = None
         defense_states = {}
@@ -436,14 +437,12 @@ class TWB:
                     % (sleep / 60, dt_next.time())
                 )
                 sys.stdout.flush()
-                time.sleep(sleep)
 
                 if ite == iterations:
-                    asyncio.run(send_message_telegram('Session Finish - Successfull - Rotate cookie'), SECRETS)
+                    asyncio.run(send_message_telegram('Session Finish - Successfull - Rotate cookie', SECRETS))
                     return 0
-
-
-
+                
+                time.sleep(sleep)
 
     def start(self, connection_string, page, iterations):
         """
@@ -563,7 +562,9 @@ def wrapper_rotator(world, iterations):
 
 if __name__ == "__main__":
 
-    avg_world_iterations = 70 # more or less every 6h
+    avg_world_iterations = 70 #70 # more or less every 6h
+
+    cross_run_sleep = 5
 
     should_run=True # maybe add some logic to kill in the future idk
     while should_run:
@@ -573,3 +574,5 @@ if __name__ == "__main__":
             iterations = int(random.gauss(avg_world_iterations, avg_world_iterations/3))
 
             wrapper_rotator(w, iterations)
+
+            time.sleep(random.gauss(cross_run_sleep, cross_run_sleep/3))

@@ -17,16 +17,32 @@
     "resources": {}
   },
   "resources": {
-    "wood": 55411,
-    "stone": 58449,
-    "iron": 46409,
+    "wood": 32567,
+    "stone": 13051,
+    "iron": 42891,
     "pop": 0
   },
   "required_resources": {
     "building": {
+      "stone": 20239,
       "pop": 29,
+      "wood": 58194,
+      "iron": 0
+    },
+    "recruitment_archer": {
       "wood": 0,
-      "stone": 0
+      "stone": 0,
+      "iron": 0
+    },
+    "recruitment_sword": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0
+    },
+    "recruitment_spear": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0
     },
     "recruitment_spy": {
       "wood": 0,
@@ -35,11 +51,13 @@
     }
   },
   "available_troops": {
-    "spear": "108",
-    "axe": "959",
-    "archer": "57",
+    "spear": "116",
+    "sword": "166",
+    "axe": "3166",
+    "archer": "467",
     "spy": "5",
-    "light": "5",
+    "light": "1",
+    "marcher": "130",
     "ram": "102",
     "catapult": "5",
     "knight": "1",
@@ -72,12 +90,12 @@
     "barracks:25"
   ],
   "troops": {
-    "spear": 208,
-    "sword": 258,
-    "axe": 3159,
+    "spear": 216,
+    "sword": 266,
+    "axe": 3166,
     "archer": 467,
     "spy": 5,
-    "light": 1175,
+    "light": 1171,
     "marcher": 130,
     "heavy": 0,
     "ram": 102,
@@ -87,5 +105,5 @@
     "militia": 0
   },
   "under_attack": false,
-  "last_run": 1772056909
+  "last_run": 1772096884
 }

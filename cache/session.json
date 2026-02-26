@@ -3,9 +3,9 @@
   "server": "pl225",
   "cookies": {
     "websocket_available": "true",
-    "pl_auth": "32e77b2d9dcd:d600f431584f334b4d9f03d45a3d8727707df289cdb080d81ab7e694a3f89e0b",
-    "cid": "1690978949",
-    "sid": "0%3Aada7f87a0d9d452b430535d02caff0d25d485fd16c4780c59de1b75781e7aa537777b7b515603c557f9128960c70b80942929f31ef31211af843316863cb7fdb",
+    "sid": "0%3Ae6b6086a27e520a03dbdd4c3157eae67e21f56ded136f145e17bb2daf469fa1d5a035bf6345afdf2071d3c5220c88de5739cd1b4aa5a7d720ef4eb7b174f6da9",
+    "cid": "495600192",
+    "pl_auth": "9160a6963b37:6dc4db9328d4fe55c6855cf1eb647df0f014fa594318a55c78cf51f23cfaa689",
     "global_village_id": "27766"
   }
 }
