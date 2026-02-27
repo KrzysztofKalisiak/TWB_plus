@@ -8,7 +8,7 @@
       368
     ],
     "bonus": null,
-    "points": 3151,
+    "points": 3241,
     "safe": false,
     "scout": false,
     "tribe": "677",
@@ -17,20 +17,17 @@
     "resources": {}
   },
   "resources": {
-    "wood": 8461,
-    "stone": 2037,
-    "iron": 4647,
-    "pop": 1680
+    "wood": 6612,
+    "stone": 7647,
+    "iron": 9502,
+    "pop": 523
   },
   "required_resources": {},
   "available_troops": {
-    "spear": "61",
-    "sword": "211",
-    "axe": "18",
-    "archer": "11",
+    "spear": "17",
+    "archer": "2",
     "spy": "68",
-    "light": "12",
-    "heavy": "5"
+    "heavy": "3"
   },
   "buidling_levels": {
     "main": 20,
@@ -49,7 +46,7 @@
     "farm": 20,
     "storage": 18,
     "hide": 10,
-    "wall": 16
+    "wall": 20
   },
   "building_queue": [
     "stone:1",
@@ -179,14 +176,14 @@
     "barracks:25"
   ],
   "troops": {
-    "spear": 427,
-    "sword": 211,
+    "spear": 715,
+    "sword": 381,
     "axe": 18,
     "archer": 11,
     "spy": 68,
     "light": 232,
     "marcher": 0,
-    "heavy": 5,
+    "heavy": 118,
     "ram": 0,
     "catapult": 0,
     "knight": 0,
@@ -194,5 +191,5 @@
     "militia": 0
   },
   "under_attack": false,
-  "last_run": 1772096974
+  "last_run": 1772192604
 }

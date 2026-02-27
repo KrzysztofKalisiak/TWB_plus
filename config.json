@@ -19,7 +19,7 @@
     "token": ""
   },
   "bot": {
-    "active_hours": "7-23",
+    "active_hours": "0-25",
     "delay_factor": 1.0,
     "active_delay": 300,
     "inactive_still_active": true,
@@ -107,7 +107,7 @@
       "prioritize_building": false,
       "prioritize_snob": true,
       "trade_for_premium": false,
-      "gather_enabled": false,
+      "gather_enabled": true,
       "gather_selection": 4,
       "advanced_gather": true,
       "snobs": 2,
@@ -127,7 +127,7 @@
       "prioritize_snob": false,
       "trade_for_premium": false,
       "gather_enabled": true,
-      "gather_selection": 3,
+      "gather_selection": 4,
       "advanced_gather": true,
       "snobs": 0,
       "evacuate_fragile_units_on_attack": true,
