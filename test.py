@@ -43,6 +43,11 @@ async def main2():
 
     browser = await uc.start()
     page = await browser.get('https://www.whatismybrowser.com/detect/what-is-my-user-agent/')
+    value = await page.find('detected_value')
+    user_agent = value.text
+
+    print(browser.info.get("User-Agent"))
+    print(user_agent)
 
     time.sleep(100)
 

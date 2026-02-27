@@ -501,6 +501,12 @@ def self_config_test():
 async def main_no_driver(world):
 
     browser = await uc.start()
+
+    user_agent = browser.info.get("User-Agent")
+    template = FileManager.load_json_file("config.json", object_pairs_hook=collections.OrderedDict)
+    template["bot"]["user_agent"] = user_agent
+    FileManager.save_json_file(template, "config.json")
+
     page = await browser.get('https://www.plemiona.pl/')
 
     time.sleep(5)
